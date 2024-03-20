@@ -159,9 +159,37 @@ export default class UsersController {
       return response.created({ message: 'Password updated' })
 
     } catch (error) {
-      
+
       return response.internalServerError({
         message: 'Something went wrong during registration',
+        error: error,
+      })
+    }
+  }
+
+  async enabledById({ params, request, response }: HttpContext) {
+    const user = await User.find(params.id)
+
+    if (!user) {
+      return response.badRequest({ message: "User don't exist" })
+    }
+
+    try {
+
+      const enabled = request.all()
+
+      if (!enabled) {
+        return response.badRequest({ message: 'Enabled is required' })
+      }
+
+      user.enabled = enabled.enabled
+
+      user.save()
+      return response.created({ message: 'Enabled updated' })
+    } catch (error) {
+
+      return response.internalServerError({
+        message: 'Something went wrong during update',
         error: error,
       })
     }

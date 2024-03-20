@@ -3,7 +3,7 @@ import { cuid } from '@adonisjs/core/helpers'
 import * as fs from 'fs'
 import Job from '#models/job'
 
-export default class UsersController {
+export default class ProfileController {
   async profile({ auth, response }: HttpContext) {
     const user = await auth.authenticate()
     const { password, enabled, is_admin, ...userInfo } = user.$attributes

@@ -31,6 +31,9 @@ router
 router.get('/jobs', '#controllers/jobs_controller.index')
 router.post('/jobs/new', '#controllers/jobs_controller.new')
 
+// ------Users
+router.get('/users', '#controllers/users_controller.getAll')
+
 //------Admin
 router
   .group(() => {

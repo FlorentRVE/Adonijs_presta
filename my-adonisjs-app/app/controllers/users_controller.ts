@@ -10,6 +10,11 @@ export default class UsersController {
     return response.ok({ Users: users })
   }
 
+  async getAll({ response }: HttpContext) {
+    const users = await User.findManyBy({is_admin : false, enabled : true})
+    return response.ok({ Users: users })
+  }
+
   async getById({ params, response }: HttpContext) {
     const user = await User.find(params.id)
     if (!user) {
